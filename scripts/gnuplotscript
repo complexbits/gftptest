@@ -1,0 +1,47 @@
+#!/bin/bash
+###############################################
+# gnuplotscript by Jamie Schwettmann
+# hegarty@nhn.ou.edu 
+#
+# Run this script after globus-transfer-test to generate a batch file for gnuplot
+# and subsequently generate the data plots
+#
+###############################################
+
+echo "set terminal png" > gnuplotbatch
+echo 'set datafile separator ","' >> gnuplotbatch
+
+echo 'set xlabel "Transfer Length (bytes)"' >> gnuplotbatch
+
+echo 'set ylabel "Average Transfer Speed (Mb/s)"' >> gnuplotbatch
+echo 'set output "length_vs_gucavg.png"' >> gnuplotbatch
+echo "plot 'gtt.data' using 4:9" >> gnuplotbatch
+
+echo 'set ylabel "Average %CPU usage during transfer"' >> gnuplotbatch
+echo 'set output "length_vs_cpuavg.png"' >> gnuplotbatch
+echo "plot 'gtt.data' using 4:11" >> gnuplotbatch
+
+echo 'set xlabel "TCP Buffer Size (bytes)"' >> gnuplotbatch
+
+echo 'set ylabel "Average Transfer Speed (Mb/s)"' >> gnuplotbatch
+echo 'set output "tcpbuffer_vs_gucavg.png"' >> gnuplotbatch
+echo "plot 'gtt.data' using 6:9" >> gnuplotbatch
+
+echo 'set ylabel "Average %CPU usage during transfer"' >> gnuplotbatch
+echo 'set output "tcpbuffer_vs_cpuavg.png"' >> gnuplotbatch
+echo "plot 'gtt.data' using 6:11" >> gnuplotbatch
+
+echo 'set xlabel "Parallel streams"' >> gnuplotbatch
+
+echo 'set ylabel "Average Transfer Speed (Mb/s)"' >> gnuplotbatch
+echo 'set output "parallel_vs_gucavg.png"' >> gnuplotbatch
+echo "plot 'gtt.data' using 5:9" >> gnuplotbatch
+
+echo 'set ylabel "Average %CPU usage during transfer"' >> gnuplotbatch
+echo 'set output "parallel_vs_cpuavg.png"' >> gnuplotbatch
+echo "plot 'gtt.data' using 5:11" >> gnuplotbatch
+
+
+gnuplot gnuplotbatch
+
+exit 0

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+nLINES=`wc -l cpudata | cut -d" " -f1`
+CPUTOT=0
+CPUMAX=0
+for ((iLINE=1; iLINE <= $nLINES; iLINE++)) do
+
+#-- check whether the first character is a space
+FIRSTCHAR=`head -$iLINE cpudata | tail -1 | tr '[:space:]' --squeeze-repeats | cut -b1`
+
+#-- if the first character is a space, modify which field we need to evaluate
+[[ $FIRSTCHAR=" " ]] && FIELD=10 || FIELD=9
+
+#-- get the %cpu on this line
+CPUUSE=`head -$iLINE cpudata | tail -1 | tr '[:space:]' --squeeze-repeats | cut -d" " -f$FIELD`
+
+#-- if it's greater than the previous maximum, update the maximum
+[[ `echo "$CPUUSE > $CPUMAX" | bc -q` -eq 1 ]] && CPUMAX=$CPUUSE 
+
+#-- add it to the running total to calculate the average
+CPUTOT=`echo "$CPUUSE + $CPUTOT" | bc -q`
+
+done
+
+CPUAVG=`echo "$CPUUSE / $nLINES" | bc -q`
+echo "%CPUAVG=$CPUAVG, %CPUMAX=$CPUMAX"
+
+exit 0

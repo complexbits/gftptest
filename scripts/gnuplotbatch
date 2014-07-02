@@ -1,0 +1,23 @@
+set terminal png
+set datafile separator ","
+set xlabel "Transfer Length (bytes)"
+set ylabel "Average Transfer Speed (Mb/s)"
+set output "length_vs_gucavg.png"
+plot 'gtt.data' using 4:9
+set ylabel "Average %CPU usage during transfer"
+set output "length_vs_cpuavg.png"
+plot 'gtt.data' using 4:11
+set xlabel "TCP Buffer Size (bytes)"
+set ylabel "Average Transfer Speed (Mb/s)"
+set output "tcpbuffer_vs_gucavg.png"
+plot 'gtt.data' using 6:9
+set ylabel "Average %CPU usage during transfer"
+set output "tcpbuffer_vs_cpuavg.png"
+plot 'gtt.data' using 6:11
+set xlabel "Parallel streams"
+set ylabel "Average Transfer Speed (Mb/s)"
+set output "parallel_vs_gucavg.png"
+plot 'gtt.data' using 5:9
+set ylabel "Average %CPU usage during transfer"
+set output "parallel_vs_cpuavg.png"
+plot 'gtt.data' using 5:11

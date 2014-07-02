@@ -1,0 +1,165 @@
+#!/bin/bash
+
+# Script to test available TeraGrid resources
+# and gather info about them.
+################################################
+
+THISSCRIPT=`basename $0`
+
+# TeraGrid Host and Login list #################
+TGRID_HLIST="./teragrid_hostlist" # Contains HOSTLIST and REMOVED_HOSTS
+
+. $TGRID_HLIST
+
+# List of Configuration Files ###################
+FILELIST="
+~/.globus
+~/.bashrc
+~/.emacs
+"
+# FUNCTIONS #####################################
+
+usage_msg(){
+
+echo "Usage: $THISSCRIPT <options>"
+echo " "
+echo "Options include:"
+echo " "
+echo "  help           Displays this message. This message is also displayed"
+echo "                 if $THISSCRIPT is run with no options specified."
+echo " "
+echo "  hostnames      Returns result of hostname command for each host."
+echo "                 Useful for testing to see which hostnames are responding."
+echo " "
+echo "  sync           Syncs gftptest project files to each host."
+echo " " 
+echo "  versions       Locates tools and their versions on each host"
+echo " "
+echo "  proxyinit      Initializes proxies across teragrid hosts"
+echo " "
+echo "  speedtest      Attempts to test speed between hosts using iperf, globus-url-copy, ping, or whatever's available."
+echo " "
+
+}
+
+sync_files(){
+
+for i in $HOSTLIST; do 
+
+    HOSTONLY=`echo $i | cut -d@ -f2`
+    printf "syncing to $HOSTONLY..."
+
+    psync up ~/gftptest $i:~/gftptest --exclude binfiles --delete 2>&1 > /dev/null
+
+    printf "done.\n\n"
+
+done
+
+}
+
+get_hostnames(){
+
+for i in $HOSTLIST; do
+
+    ssh -XY $i "hostname"
+
+done
+
+}
+
+get_versions(){
+
+for i in $HOSTLIST; do
+    
+    HOSTONLY=`echo $i | cut -d@ -f2`
+    echo "$HOSTONLY:"
+    ssh -XY $i "which globus-version; globus-version"
+    ssh -XY $i "which iperf; /usr/bin/iperf --version"
+    echo " "
+
+done
+}
+
+initialize_proxies(){
+
+for i in $HOSTLIST; do
+    
+    HOSTONLY=`echo $i | cut -d@ -f2`
+    echo "$HOSTONLY:"
+    ssh -XY $i "grid-proxy-init"
+    echo " "
+
+done
+}
+
+test_transfer_speed(){
+
+for i in $HOSTLIST; do
+
+    HOSTONLY_i=`echo $i | cut -d@ -f2`
+    echo "$HOSTONLY_i:"
+
+    for j in $HOSTLIST; do
+
+	HOSTONLY_j=`echo $j | cut -d@ -f2`
+	
+#	ssh -XY $i "globus-url-copy -vb -p 5 -len 100000 gsiftp://$HOSTONLY_i/dev/zero gsiftp://$HOSTONLY_j/dev/null"
+ 
+#	ssh -XY $i "iperf -c $HOSTONLY_j"
+
+	printf "Pinging $HOSTONLY_j:\n"
+	PINGTEST=`ssh -XY $i "ping -c 4 $HOSTONLY_j | tail -1"`
+	printf "$PINGTEST\n\n"
+    done
+
+done
+}
+
+update_config(){
+
+for i in $HOSTLIST; do
+
+    HOSTONLY=`echo $i | cut -d@ -f2`
+    echo "$HOSTONLY:"
+
+    echo "#!/bin/bash" > update_files
+
+    for j in $FILELIST; do
+
+	echo "scp -r $j $i:~/" >> update_files
+
+    done
+
+    echo "exit 0" >> update_files
+
+    chmod u+x update_files
+    update_files
+    rm -rf update_files
+
+    echo " "
+
+done
+}
+
+##################################################
+
+case $1 in
+
+    hostnames)	get_hostnames;;
+
+    versions) get_versions;;
+
+    speedtest) test_transfer_speed;;
+
+    sync)  sync_files;;
+
+    update) update_config;;
+
+    proxyinit) initialize_proxies;;
+
+    help)  usage_msg;;
+
+    *)  usage_msg;;
+esac
+
+exit 0

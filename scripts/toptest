@@ -1,0 +1,12 @@
+#!/bin/bash
+
+( ( globus-job-run tier2-03.ochep.ou.edu /usr/bin/top -b -d 1 -n 500 ) > cpudata_raw )  & 
+
+globus-url-copy -vb -p 5 -len 5000000000 gsiftp://tier2-03.ochep.ou.edu/dev/zero gsiftp://tier2-04.ochep.ou.edu/dev/null
+
+globus-job-run tier2-03.ochep.ou.edu /usr/bin/killall top
+
+cat cpudata_raw | grep gridftp > cpudata
+
+exit 0
+

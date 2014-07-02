@@ -1,0 +1,20 @@
+09/16/09 Teragrid tests
+
+- created teragrid-info-test (TIT) last time, which hops through teragrid hosts to gather info.
+- successfully used TIT to create proxies and check versions for globus, iperf
+- most hosts do not have iperf available.
+- using ping to calculate bandwidth instead...
+ex: tier2-03 to tier2-04.  4 packets, 64B each, avg 0.385ms
+=> bandwidth = 64 B / 0.385 * 10^-3 s = 64/0.385 kB/s  = 166 kB/s = 1329 kb/s (1.33 Mb/s)
+
+(10Gb/s = 1.25 GB/s)
+=> a 10 Gb/s link, giving 1.25GB/s will have a 64 B ping of
+
+64 B / 1.25 * 10^9 GB/s = 0.0000000512 s = 0.0512 ns
+
+=> a 1 Gb/s link, giving 0.125 GB/s will have a 64B ping of 0.512 ns.
+a 100 Mb/s link should have a ping of 5.12 ns = 0.005 ms
+a 10 Mb/s link should have a ping of 0.051 ms
+a 1 Mb/s link should have a ping of 0.512 ms
+
+The lowest observed average so far, between lincoln and itself was 0.29ms.

@@ -1,0 +1,305 @@
+#!/bin/bash
+
+# Automated GridFTP test script
+# Jamie E. H. Schwettmann
+# hegarty@nhn.ou.edu
+##################################################################
+
+#-- assumes login on OCHEP Tier2 cluster with
+#-- OSG setup already run.
+
+#-- setup the environment:
+
+timestamp(){
+    date +%m%d%H%M%S
+}
+
+secondstamp(){
+    date +%s.%N
+}
+
+THISSCRIPT=`basename $0`
+
+# Standard Usage message
+usage_msg(){
+
+    printf "\n Insert Usage Msg here \n\n"
+
+    exit 0
+}
+
+# Parse Arguments
+
+parse_args(){
+
+    case "$1" in
+	-h)		
+	    usage_msg
+	    SHIFT=1
+	    ;;
+
+	--help) 
+	    usage_msg
+	    SHIFT=1
+	    ;;
+
+	-help)  
+	    usage_msg
+	    SHIFT=1
+	    ;;
+
+	--debug)
+	    DEBUG=1
+	    SHIFT=1
+	    ;;
+	
+	-f)
+	    URLFILE=$2
+	    SHIFT=2
+	    ;;
+
+	*)		
+	    echo "  Urecognized options. Try \""$THISSCRIPT" --help\""
+	    exit 0
+	    ;;			
+    esac
+}
+
+#echo "$1"
+#echo "$@"
+#echo "$#"
+
+for ARG in "$@"; do
+
+    [[ $DEBUG ]] && echo "Parsing $ARG:"
+    case "$ARG" in
+	-h)		
+	    usage_msg
+	    SHIFT=1
+	    ;;
+
+	--help) 
+	    usage_msg
+	    SHIFT=1
+	    ;;
+
+	-help)  
+	    usage_msg
+	    SHIFT=1
+	    ;;
+
+	--debug)
+	    DEBUG=1
+	    SHIFT=1
+	    ;;
+	
+	-f)
+	    URLFILE=$2
+	    SHIFT=2
+	    ;;
+
+	*)		
+	    echo "  Urecognized options. Try \""$THISSCRIPT" --help\""
+	    exit 0
+	    ;;			
+    esac
+    shift $SHIFT
+    [[ $DEBUG ]] && echo "$# args remain: $@"
+
+done
+
+[[ $URLFILE ]] && echo "URLs in $URLFILE:" && cat $URLFILE
+
+exit 0
+
+#-- Thanks go to Mitch Frazier of LinuxJournal for the following
+#-- floating point number functions ...
+#-- (http://www.linuxjournal.com/content/floating-point-math-bash)
+
+# Floating point number functions.
+
+#####################################################################
+# Default scale used by float functions.
+
+float_scale=2
+
+
+#####################################################################
+# Evaluate a floating point number expression.
+
+function float_eval()
+{
+    local stat=0
+    local result=0.0
+    if [[ $# -gt 0 ]]; then
+        result=$(echo "scale=$float_scale; $*" | bc -q 2>/dev/null)
+        stat=$?
+        if [[ $stat -eq 0  &&  -z "$result" ]]; then stat=1; fi
+    fi
+    echo $result
+    return $stat
+}
+
+
+#####################################################################
+# Evaluate a floating point number conditional expression.
+
+function float_cond()
+{
+    local cond=0
+    if [[ $# -gt 0 ]]; then
+        cond=$(echo "$*" | bc -q 2>/dev/null)
+        if [[ -z "$cond" ]]; then cond=0; fi
+        if [[ "$cond" != 0  &&  "$cond" != 1 ]]; then cond=0; fi
+    fi
+    local stat=$((cond == 0))
+    return $stat
+}
+
+#####################################################################
+
+
+#-- check for a grid proxy:
+
+echo "Checking for Grid proxy..."
+
+
+if [ "`grid-proxy-info | tail -1 | cut -d: -f4`" = "00" ]; then
+    grid-proxy-init
+else
+    echo "Grid proxy OK"
+fi
+
+
+
+#-- goal: automate transfer of 1m, 10m, 100m, 1g, and 10g files between
+#-- tier2-03 and tier2-04 over globus-url-copy
+
+#-- before/during/after transfer, collect:
+#--    resource usage stats
+#--    network usage stats
+#--    transfer stats
+
+
+#-- test with 1m, 10m, 100m files before moving to 1g, 10g files.
+
+#-- test with single stream transfer before iterating with multiple streams.
+
+#-- update to use UDT when available.
+
+memtransfer(){
+
+
+       	/usr/bin/time -f "%e\t%S\t%U\t%P\t%M\t%t\t%K\t%D\t%p\t%X\t%Z\t%F\t%R\t%W\t%c\t%w\t%I\t%O\t%r\t%s\t%k\t%C\t%x" \
+	    globus-url-copy $OPTS -p $NSTREAMS gsiftp://$SHOST/dev/zero gsiftp://$RHOST/dev/null
+	
+}
+
+transfer(){
+
+
+       	/usr/bin/time -f "%e\t%S\t%U\t%P\t%M\t%t\t%K\t%D\t%p\t%X\t%Z\t%F\t%R\t%W\t%c\t%w\t%I\t%O\t%r\t%s\t%k\t%C\t%x" \
+	    globus-url-copy $OPTS -p $NSTREAMS gsiftp://$SHOST$SDIR$FSIZE.bin gsiftp://$RHOST$RDIR
+	
+}
+
+
+SHOST=tier2-03.ochep.ou.edu
+RHOST=tier2-04.ochep.ou.edu
+
+#RHOST=$SHOST
+
+#SDIR=/dev/zero
+#RDIR=/dev/null
+
+SDIR=/state/partition1/tmp/gftptest/binfiles/
+RDIR=/state/partition1/tmp/gftptest/recvfiles/
+
+STREAM_LIMIT=10;
+
+#Use round-trip time to find delay (globus-job-run ?)
+#Use Avail (optimum) bandwdith * delay to calculate buffer size
+#Otherwise use some default buffer size, or iterate
+#TCP_BUFFER_SIZE
+#if rtime ~12ms, TCP buffer should be ~160MB
+#change file and mem sizes to match buffer (not smaller than buffer)
+
+printf "Transfer ID\tSourceHost\t\tDestHost\t\tOpts\tStreams\tExecTime\n" > dd_stats
+printf "_________________________________________________________________________________________________\n\n" >> dd_stats
+
+printf "Transfer ID\tSourceHost\t\tDestHost\t\tOpts\tStreams\tExecTime\n" > mm_stats
+printf "_________________________________________________________________________________________________\n\n" >> mm_stats
+
+for ((NSTREAMS=1; NSTREAMS <= STREAM_LIMIT; NSTREAMS++)) do
+    
+    OPTS="-vb"
+    for FSIZE in "100m" "1g"; do
+	
+	TRANSFER_ID=`timestamp`	
+	TRANSFER_START_TIME=`secondstamp`
+
+	{ { transfer; } 2>> dd_timestats; } >> gucstats
+
+	TRANSFER_FIN_TIME=`secondstamp`
+	TRANSFER_RTIME=`float_eval "$TRANSFER_FIN_TIME - $TRANSFER_START_TIME"`
+
+	GUCBYTES_TMP=`tail -1 gucstats | cut -db  -f1`
+	declare -i GUCBYTES
+	GUCBYTES=$GUCBYTES_TMP
+	#echo "$GUCBYTES"
+
+	GUCAVG=`tail -1 gucstats | tr '[:space:]' --squeeze-repeats | cut -d" " -f 4`
+	#echo "$GUCAVG"
+
+	GUCINST=`tail -1 gucstats | tr '[:space:]' --squeeze-repeats | cut -d" " -f 7`
+	#echo $GUCINST
+
+	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" $TRANSFER_ID $SHOST $RHOST $OPTS $NSTREAMS $TRANSFER_RTIME $GUCBYTES $GUCAVG $GUCINST >> dd_stats
+
+    done
+
+    for LEN in "10000000" "100000000" "1000000000" "10000000000"; do
+	
+	OPTS="-vb -len $LEN"
+
+	TRANSFER_ID=`timestamp`	
+	TRANSFER_START_TIME=`secondstamp`
+
+	{ { memtransfer; } 2>> mm_timestats; } >> gucstats
+
+	TRANSFER_FIN_TIME=`secondstamp`
+	TRANSFER_RTIME=`float_eval "$TRANSFER_FIN_TIME - $TRANSFER_START_TIME"`
+
+	GUCBYTES_TMP=`tail -1 gucstats | cut -db  -f1`
+	declare -i GUCBYTES
+	GUCBYTES=$GUCBYTES_TMP
+	#echo "$GUCBYTES"
+
+	GUCAVG=`tail -1 gucstats | tr '[:space:]' --squeeze-repeats | cut -d" " -f 4`
+	#echo "$GUCAVG"
+
+	GUCINST=`tail -1 gucstats | tr '[:space:]' --squeeze-repeats | cut -d" " -f 7`
+	#echo $GUCINST
+
+	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" $TRANSFER_ID $SHOST $RHOST $OPTS $NSTREAMS $TRANSFER_RTIME $GUCBYTES $GUCAVG $GUCINST >> mm_stats
+
+    done
+    
+done 
+
+
+exit 0
+
+
+
+# collect during transfer:
+#
+# Transfer ID
+# Source Host
+# Dest Host
+# Protocol
+# Streams
+# execution time
+# Bytes Transferred
+# g-u-c stats
+

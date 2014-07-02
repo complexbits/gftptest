@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+SHOST="tier2-03.ochep.ou.edu"
+DHOST="tier2-04.ochep.ou.edu"
+
+SDIR="/state/partition1/tmp"
+DDIR="/state/partition1/tmp"
+
+#------ disk-to-disk transfer -----#
+
+# transfer the file
+globus-url-copy -vb -p 8 gsiftp://$SHOST$SDIR/onegiga gsiftp://$DHOST$DDIR/onegiga2
+
+# cleanup leftover files
+globus-job-run $DHOST /bin/rm $DDIR/onegiga2
+
+# get globus versions
+SHOST_GV_command=`globus-job-run $SHOST /usr/bin/which globus-version`
+DHOST_GV_command=`globus-job-run $DHOST /usr/bin/which globus-version`
+
+SHOST_GV=`globus-job-run $SHOST $SHOST_GV_command`
+DHOST_GV=`globus-job-run $DHOST $DHOST_GV_command`
+
+# write data to file
+echo "$SHOST $SDIR $SHOST_GV $DHOST $DDIR $DHOST_GV"

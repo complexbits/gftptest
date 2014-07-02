@@ -1,0 +1,52 @@
+/state/partition1/tmp/gt-4.2.1/sbin/gpt-build  -verbose -srcdir=source-trees-thr/core/source gcc64dbgpthr
+Scanning /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/core/source/pkgdata/pkg_data_src.gpt.in
+/state/partition1/tmp/gt-4.2.1/sbin/gpt-build  -verbose -srcdir=source-trees-thr/mds/libtool gcc64dbgpthr
+Scanning /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/mds/libtool/pkg_data_src.gpt
+
+gpt-build ====> CHECKING BUILD DEPENDENCIES FOR globus_libtool
+SKIPPING REBUILD of gcc64dbgpthr
+/state/partition1/tmp/gt-4.2.1/sbin/gpt-build  -verbose -srcdir=source-trees-thr/common/source gcc64dbgpthr
+Scanning /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/common/source/pkgdata/pkg_data_src.gpt.in
+
+gpt-build ====> CHECKING BUILD DEPENDENCIES FOR globus_common
+SKIPPING REBUILD of gcc64dbgpthr
+/state/partition1/tmp/gt-4.2.1/sbin/gpt-build  -verbose -srcdir=source-trees-thr/xio/src gcc64dbgpthr
+Scanning /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/xio/src/pkgdata/pkg_data_src.gpt.in
+
+gpt-build ====> CHECKING BUILD DEPENDENCIES FOR globus_xio
+SKIPPING REBUILD of gcc64dbgpthr
+/state/partition1/tmp/gt-4.2.1/sbin/gpt-build  -verbose -srcdir=source-trees-thr/gsi/openssl/source gcc64dbgpthr
+Scanning /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/gsi/openssl/source/pkgdata/pkg_data_src.gpt.in
+
+gpt-build ====> CHECKING BUILD DEPENDENCIES FOR globus_openssl
+
+gpt-build ====> Changing to /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/gsi/openssl/source
+
+gpt-build ====> BUILDING FLAVOR gcc64dbgpthr
+/usr/bin/make distclean
+make[1]: Entering directory `/state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/gsi/openssl/source'
+make[1]: *** No rule to make target `distclean'.  Stop.
+make[1]: Leaving directory `/state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/gsi/openssl/source'
+GLOBUS_LOCATION=/state/partition1/tmp/gt-4.2.1; export GLOBUS_LOCATION;  CPP='/usr/bin/gcc -E'; export CPP; CPPFLAGS=' -I/state/partition1/tmp/gt-4.2.1/include -I/state/partition1/tmp/gt-4.2.1/include/gcc64dbgpthr'; export CPPFLAGS; CFLAGS='-g   -m64  -Wall'; export CFLAGS; LDFLAGS=' -L/state/partition1/tmp/gt-4.2.1/lib -m64 '; export LDFLAGS; LIBS='  -lpthread'; export LIBS; CXX='/usr/bin/c++'; export CXX; CXXCPP='/usr/bin/c++ -E'; export CXXCPP; CXXFLAGS='-g   -m64 '; export CXXFLAGS; F77='/usr/bin/f77'; export F77; AR='/usr/bin/ar'; export AR; ARFLAGS='ruv'; export ARFLAGS; RANLIB='/usr/bin/ranlib'; export RANLIB; NM='/usr/bin/nm -B'; export NM; CC='/usr/bin/gcc'; export CC;  /state/partition1/tmp/src/gt4.2.1-all-source-installer/source-trees-thr/gsi/openssl/source/configure  --enable-64bit --enable-debug --with-threads=pthreads  --with-flavor=gcc64dbgpthr 
+checking whether to enable maintainer-specific portions of Makefiles... no
+Dependencies Complete
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking OpenSSL CFLAGS... using ''
+checking OpenSSL INCLUDES... using ''
+checking for style of include used by make... GNU
+checking for gcc... /usr/bin/gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether /usr/bin/gcc accepts -g... yes
+checking for /usr/bin/gcc option to accept ANSI C... none needed
+checking dependency style of /usr/bin/gcc... none
+configure: error: Unable to compile with SSL
+ERROR: Build has failed
+make: *** [globus_system_openssl-thr] Error 9

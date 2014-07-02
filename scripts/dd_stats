@@ -1,0 +1,23 @@
+Transfer ID	SourceHost		DestHost		Opts	Streams	ExecTime
+_________________________________________________________________________________________________
+
+0630131625	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	1	9.172804000	104857600	22.22	22.22
+0630131637	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	1	20.686420000	189530112	34.76	34.76
+0630131904	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	2	8.782017000	104857600	21.74	21.74
+0630131913	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	2	17.257615000	141819904	27.05	27.05
+0630132301	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	3	7.161847000	104857600	23.26	23.26
+0630132311	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	3	20.464564000	113508352	21.65	21.65
+0630132717	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	4	6.879414000	104857600	34.48	34.48
+0630132724	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	4	37.476180000	112721920	21.50	21.50
+0630133114	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	5	5.156442000	104857600	27.78	27.78
+0630133122	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	5	14.745980000	237502464	45.30	45.30
+0630133443	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	6	5.942904000	104857600	28.57	28.57
+0630133452	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	6	23.593869000	170655744	32.55	32.55
+0630133747	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	7	7.204808000	104857600	20.41	20.41
+0630133756	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	7	20.684458000	68681728	13.10	13.10
+0630134148	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	8	8.871223000	104857600	21.28	21.28
+0630134157	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	8	28.494026000	196870144	37.55	37.55
+0630134503	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	9	4.516096000	104857600	34.48	34.48
+0630134508	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	9	13.333377000	214433792	40.90	40.90
+0630134851	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	10	6.786172000	93585408	17.85	17.85
+0630134858	tier2-03.ochep.ou.edu	tier2-04.ochep.ou.edu	-vb	10	20.428741000	214171648	40.85	40.85

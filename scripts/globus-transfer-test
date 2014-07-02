@@ -1,0 +1,420 @@
+#!/bin/bash
+##################################################################
+# Automated GridFTP test script
+# Jamie E. H. Schwettmann
+# hegarty@nhn.ou.edu
+#
+##################################################################
+# Setup the environment:
+
+timestamp(){
+    date +%m%d%H%M%S
+}
+
+secondstamp(){
+    date +%s.%N
+}
+
+THISSCRIPT=`basename $0`
+
+####################################################################
+# Standard Usage message
+
+usage_msg(){
+
+    printf "Usage: $THISSCRIPT <options> [-f urlfile | sourceHost destHost]\n\n"
+    printf "Options include:\n"
+    printf "  -h, -help, or --help    Print this message.\n\n"
+    printf "  --debug       Display debug info during execution. \n\
+                Overrides all options to suppress output to screen.\n\n"
+    printf "  -f [urlfile]    Specify urls in file urlfile\n\n"
+    printf "  -tcp-bs [bytes] Set TCP Buffer size, in bytes.\n\n"
+    printf "  -tcp-buffer-size Same as -tcp-bs.\n\n"
+    printf "  -ls [Mb/s]    Set network link speed, in Mb/s. Useful for calculating\n\
+               TCP buffer size and MTU if they haven't been specified.\n\
+               Default is to guess a 1000 Mb/s (1 Gb/s) link speed.\n\n"
+    printf "  -link-speed   Same as -ls.\n\n"
+    printf "  -q            Run quietly, but prompt if needed\n\
+                (unless -no-prompts is also given).\n\n"
+    printf "  -no-proxy     Do not check for a valid Grid proxy, but assume it exists.\n\
+                Default is to check for a proxy and prompt for \n\
+                authentication if a valid proxy cannot be verified.\n\n"
+    printf "  -no-prompts   Do not prompt for anything. Errors written to logfile.\n\n"
+    printf "  -no-dd        Skip disk-to-disk tests\n\n"
+    printf "  -no-dm        Skip disk-to-mem tests\n\n"
+    printf "  -no-md        Skip mem-to-disk tests\n\n"
+    printf "  -no-mm        Skip mem-to-mem tests\n\n"
+    printf "  -mem          Perform only mem-to-mem tests\n\n"
+    printf "  -disk         Perform only disk-to-disk tests\n\n"
+    printf "  -no-udt       Skip UDT tests.\n\n"
+
+    printf "  All standard globus-url-copy options are also supported, except multicasting.\n\n\
+  Host pairs must be provided either via the -f option, or by specifying\n\
+  sourceHost and destHost on the command line. If no hosts are specified,\n\
+  $THISSCRIPT will quit with error code 123.\n\n"
+    printf "  Limitations:  URLs cannot contain paths longer than 16 directories deep on\n\
+  each host.  Avoid using such deep file structures for testing.\n\n"
+
+    exit 0
+}
+
+#####################################################################
+# Parse arguments.
+
+if [ $# -eq 0 ]; then
+    usage_msg
+fi
+
+while [ $# -gt 0 ] ; do
+    [[ $DEBUG ]] && echo "Parsing $1:"
+    case "$1" in
+	-h | --help | -help  )	    usage_msg; shift 1;;
+	--debug  )	    DEBUG=1; shift 1;;
+	-f       )          URLFILE=$2; shift 2;;
+	-p | -parallel )    PSTREAMS=$2; shift 2;;
+	-len     )	    TLENGTH=$2; shift 2;;
+	-tcp-bs | -tcp-buffer-size ) TCP_BUFFER_SIZE=$2; shift 2;;
+	-link-speed | -ls ) LINKSPEED=$2; shift 2;;
+#	-mc      )	    MULTICAST=1; GUC_OPTS="$GUC_OPTS $1"; shift 1;;
+	-q       )          QUIET=1; shift 1;;
+        -no-prompts)        NOPROMPTS=1; shift 1;;
+	-no-proxy)          NOPROXY=1; shift 1;;
+	-no-dd   )          NODD=1; shift 1;;
+	-no-mm   )          NOMM=1; shift 1;;
+	-no-dm   )          NODM=1; shift 1;;
+	-no-md   )          NOMD=1; shift 1;;
+	-mem     )          MEMONLY=1; shift 1;;
+	-disk    )          DISKONLY=1; shift 1;;
+	-no-udt  )          NOUDT=1; shift 1;;
+	*        )	    GUC_OPTS="$GUC_OPTS$1 "; shift 1;;			
+    esac
+    [[ $DEBUG ]] && [[ $# -gt 0 ]] && echo "$# args remain: $@"
+done
+
+[[ $DEBUG ]] && echo -e "Done parsing arguments\n"
+[[ $DEBUG ]] && echo "GUC_OPTS = $GUC_OPTS"
+
+
+#####################################################################
+# Function to calculate TCP Buffer Size
+
+function get_TCPbuffer()
+{
+    local SH=$1
+    local DH=$2
+    local LS=$3
+
+    [[ $DEBUG ]] && echo "   Source: $SH, Dest: $DH, LinkSpeed: $LS" >&2
+
+    # calculate round trip time using ping from the source to dest hosts
+    local RTT_AVG=`globus-job-run $SH /bin/ping -c 5 -i 1 $DH | tail -1 | cut -d/ -f5`
+
+    # calculation based on M=1000^2 rather than 1024^2, as per globus-url-copy command ref.
+    local BUFFSIZE=`echo "( $RTT_AVG * $LS * 125 )" | bc -q`
+    echo $BUFFSIZE
+    return 0
+}
+
+#####################################################################
+# Function to run a transfer and collect data from it
+
+function transfer_test()
+{
+    
+    local SHN=$1 #source hostname
+    local DHN=$2 #dest hostname
+    local TLEN=$3  #transfer length
+    local PSTR=$4  #streams
+    local TBS=$5   #tcp buffer size
+    local SHFULL=$6 #full source transfer URL
+    local DHFULL=$7 #full dest transfer URL
+    local GOPTS=$8 #GUC_OPTS
+
+    [[ $DEBUG ]] && echo "$1, $2, $3, $4, $5, $6, $7, $8" >&2
+
+
+    #-- start top on source to guage cpu/mem usage, and save data locally
+    ( ( globus-job-run $SHN /usr/bin/top -b -d0.2 -n500 ) > cpudata_raw )  &
+    
+    local TRANSFER_ID=`timestamp`	
+    local TRANSFER_START_TIME=`secondstamp`
+    
+    [[ $DEBUG ]] && echo "Transfer ID $TRANSFER_ID" >&2
+    globus-url-copy $GOPTS -vb -len $TLEN -p $PSTR -tcp-bs $TBS $SHFULL $DHFULL >> gucstats
+    
+    local TRANSFER_FIN_TIME=`secondstamp`
+    local TRANSFER_RTIME=`echo "$TRANSFER_FIN_TIME - $TRANSFER_START_TIME" | bc -q`
+    [[ $DEBUG ]] && printf "Transfer time: $TRANSFER_RTIME\n\n" >&2
+    
+    #-- kill the top job
+    globus-job-run $SHN /usr/bin/killall top
+    
+    #-- extract relevant data from top
+    cat cpudata_raw | grep globus-url-copy > cpudata
+    rm -rf cpudata_raw
+    
+    nLINES=`wc -l cpudata | cut -d" " -f1`
+    CPUTOT=0
+    CPUMAX=0
+    for ((iLINE=1; iLINE <= $nLINES; iLINE++)) do
+    
+        #-- check whether the first character is a space
+        FIRSTCHAR=`head -$iLINE cpudata | tail -1 | tr '[:space:]' --squeeze-repeats | cut -b1`
+    
+        #-- if the first character is a space, modify which field we need to evaluate
+	[[ $FIRSTCHAR=" " ]] && FIELD=10 || FIELD=9
+    
+        #-- get the %cpu on this line
+	CPUUSE=`head -$iLINE cpudata | tail -1 | tr '[:space:]' --squeeze-repeats | cut -d" " -f$FIELD`
+	
+        #-- if it's greater than the previous maximum, update the maximum
+	[[ `echo "$CPUUSE > $CPUMAX" | bc -q` -eq 1 ]] && CPUMAX=$CPUUSE 
+	
+        #-- add it to the running total to calculate the average
+	CPUTOT=`echo "$CPUUSE + $CPUTOT" | bc -q`
+	
+    done
+
+    [[ $DEBUG ]] && echo "%CPUUSE=$CPUUSE"
+    
+    CPUAVG=`echo "$CPUUSE / $nLINES" | bc -q`
+    [[ $DEBUG ]] && echo "%CPUAVG=$CPUAVG, %CPUMAX=$CPUMAX"
+    
+
+    #-- extract relevant data from the gucstats
+    GUCBYTES_TMP=`tail -1 gucstats | cut -db  -f1`
+    declare -i GUCBYTES
+    GUCBYTES=$GUCBYTES_TMP
+    GUCAVG=`tail -1 gucstats | tr '[:space:]' --squeeze-repeats | cut -d" " -f 4`
+    GUCINST=`tail -1 gucstats | tr '[:space:]' --squeeze-repeats | cut -d" " -f 7`
+    
+    [[ $DEBUG ]] && echo "GUCBYTES=$GUCBYTES, GUCAVG=$GUCAVG, GUCINST=$GUCINST"
+
+    printf "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" $TRANSFER_ID $LINKSPEED $TTYPE $TLEN $PSTR $TBS $TRANSFER_RTIME $GUCBYTES $GUCAVG $GUCINST $CPUAVG $CPUMAX $SHN $DHN $GUCOPTS >> gtt.data
+
+    return 0
+}
+
+#####################################################################
+# Check for a grid proxy.
+
+if [[ ! $NOPROXY ]]; then
+    echo "Checking for Grid proxy..."
+    
+    PROXYCHECK="`grid-proxy-info 2>&1 | tail -1 | cut -d: -f4`"
+    if [[ $PROXYCHECK = "00" || ! $PROXYCHECK ]]; then
+	echo "Unable to verify proxy, please authenticate:"
+	grid-proxy-init
+    else
+	echo "Grid proxy OK"
+    fi
+fi
+
+#####################################################################
+# Parse URLFILE and iterate over URLs to perform tests.
+
+# Determine whether we are reading urls from urlfile or from command line
+
+if [[ -f $URLFILE ]]; then 
+    [[ $DEBUG ]] && echo "URLs in $URLFILE"
+    URLLIST=`cat $URLFILE`
+elif [[ $GUC_OPTS ]]; then
+    [[ $DEBUG ]] && printf "No URL file found."
+    n=0
+    for i in $GUC_OPTS; do 
+	let n=($n+1)
+	printf "."
+    done 
+    let m=$n-1
+    
+    URLLIST=`echo $GUC_OPTS | cut -d" " -f $m,$n`
+    
+    [[ $DEBUG ]] && printf "using URLs $URLLIST\n"
+    
+    GUC_OPTS_TMP=$GUC_OPTS
+    unset GUC_OPTS
+    
+    k=0
+    for j in $GUC_OPTS_TMP; do
+	let k=($k+1)
+	[[ $k -lt $m ]] && GUC_OPTS='$GUC_OPTS`echo $GUC_OPTS_TMP | cut -d" " -f $j` '
+	
+    done
+    unset GUC_OPTS_TMP
+    [[ $DEBUG ]] && echo "GUC_OPTS = $GUC_OPTS"
+    
+    unset n m k
+    
+else
+    echo "No URLs found, exiting! (error code: 123)"
+    exit 123
+    
+fi
+
+URLNUM=0
+URLPAIRNUM=0
+for URL in $URLLIST; do 
+
+    #-- give the URL a number and determine whether this is the 
+    #-- first or second of a parsed pair
+    URLNUM=`expr $URLNUM + 1`
+    URLMOD=`expr $URLNUM % 2`
+    [[ $DEBUG ]] && echo "$URL $URLNUM $URLMOD"
+    
+    if [[ $URLMOD -gt 0 ]]; then
+
+	#-- this is the first URL in the pair
+	SHOST_FULL=$URL
+	SHOST=`echo $SHOST_FULL | cut -d/ -f 1,2,3`
+	SHOST_NAME=`echo $SHOST_FULL | cut -d/ -f 3`
+	SHOST_PATH="/`echo $SHOST_FULL | cut -d/ -f 4-20`"
+
+	#-- increment pair number
+	let URLPAIRNUM=($URLPAIRNUM+1)
+    else
+	#-- this is the second URL in the pair
+	DHOST_FULL=$URL
+	DHOST=`echo $DHOST_FULL | cut -d/ -f 1,2,3`
+	DHOST_NAME=`echo $DHOST_FULL | cut -d/ -f 3`
+	DHOST_PATH="/`echo $DHOST_FULL | cut -d/ -f 4-20`"
+
+
+#---------------------------------------------------------------------------------------
+	#-- perform tests before continuing to the next host set:
+
+	[[ $DEBUG ]] && printf "\nTesting URL pair $URLPAIRNUM...\n\n"
+
+	[[ $DEBUG ]] && echo "Source: $SHOST_NAME"
+	[[ $DEBUG ]] && echo "Dest: $DHOST_NAME"
+
+
+	[[ $DEBUG && ! $LINKSPEED ]] && echo "No Link Speed specified, guessing 1024 Mb/s (1 Gb/s)"
+	[[ ! $LINKSPEED ]] && LINKSPEED=1024 
+	[[ $DEBUG ]] && echo "LinkSpeed set to $LINKSPEED"
+
+	#-- calculate TCP Buffer size or use user-set value. truncate partial bytes.
+	echo "Calculating TCP Buffer... "
+	[[ ! $TCP_BUFFER_SIZE ]] && TCP_BUFFER_SIZE=`get_TCPbuffer $SHOST_NAME $DHOST_NAME $LINKSPEED`
+	TCP_BUFFER_SIZE=`echo $TCP_BUFFER_SIZE | cut -d. -f1`
+	[[ $DEBUG ]] && echo "TCP Buffer = $TCP_BUFFER_SIZE bytes"
+
+	#-- iterate over transfer length or use user-set value
+
+	echo "Running transfer tests..."
+
+	[[ $TLENGTH ]] && iLENMAX=1 || iLENMAX=5
+
+	for ((iLEN=1; iLEN <= iLENMAX; iLEN++)) do
+	
+	    [[ $TLENGTH ]] && LEN=$TLENGTH || LEN=$TCP_BUFFER_SIZE
+
+	    let "LEN *= iLEN"
+	    
+	    [[ $DEBUG ]] && printf "\tTransferring $LEN bytes...\n"
+
+	    #-- iterate over parallel streams or use user-set value
+
+	    if [[ $PSTREAMS ]]; then
+		nSTRMIN=$PSTREAMS
+		nSTRMAX=$PSTREAMS
+	    else
+		nSTRMIN=1
+		nSTRMAX=10
+	    fi
+
+	    for ((nSTR=$nSTRMIN; nSTR <= $nSTRMAX; nSTR++)) do
+	    
+	    [[ ! $NOUDT ]] && UDTOPTS="0 1" || UDTOPTS="0"
+	    
+	    for UDTCHECK in $UDTOPTS; do
+		
+		[[ $UDTCHECK -gt 0 ]] && GUC_OPTS_FULL="$GUC_OPTS -udt" || GUC_OPTS_FULL=$GUC_OPTS
+		
+	        [[ $DEBUG ]] && printf "\tUsing $nSTR parallel streams...\n\n"
+		
+		#-- perform mem-to-mem tests ----------------------------------
+		
+		if [[ ! $NOMM && ! $DISKONLY ]]; then
+		    
+		    TTYPE="mm"
+		    transfer_test $SHOST_NAME $DHOST_NAME $LEN $nSTR $TCP_BUFFER_SIZE $SHOST/dev/zero $DHOST/dev/null $GUC_OPTS_FULL
+		    
+		fi	
+		#-- perform disk-to-disk tests ------------------------------------
+		if [[ ! $NODD && ! $MEMONLY ]]; then
+
+		    TTYPE="dd"
+		    globus-job-run $SHOST_NAME /usr/bin/head -c $LEN /dev/zero > $SHOST_PATH$LEN.test
+		    transfer_test $SHOST_NAME $DHOST_NAME $LEN $nSTR $TCP_BUFFER_SIZE $SHOST_FULL$LEN.test $DHOST_FULL $GUC_OPTS_FULL
+		    globus-job-run $SHOST_NAME /bin/rm $SHOST_PATH$LEN.test
+		    globus-job-run $DHOST_NAME /bin/rm $DHOST_PATH$LEN.test
+		    
+		fi
+		#-- perform disk-to-mem tests ------------------------------------
+		if [[ ! $NODM && ! $MEMONLY && ! $DISKONLY ]]; then
+		    
+		    TTYPE="dm"
+		    globus-job-run $SHOST_NAME /usr/bin/head -c $LEN /dev/zero > $SHOST_PATH$LEN.test
+		    transfer_test $SHOST_NAME $DHOST_NAME $LEN $nSTR $TCP_BUFFER_SIZE $SHOST_FULL$LEN.test $DHOST/dev/null $GUC_OPTS_FULL
+		    globus-job-run $SHOST_NAME /bin/rm $SHOST_PATH$LEN.test
+		fi
+		#-- perform mem-to-disk tests ------------------------------------
+		if [[ ! $NOMD && ! $MEMONLY && ! $DISKONLY ]]; then
+
+		    TTYPE="md"
+		    transfer_test $SHOST_NAME $DHOST_NAME $LEN $nSTR $TCP_BUFFER_SIZE $SHOST/dev/zero $DHOST_FULL $GUC_OPTS_FULL
+		    globus-job-run $DHOST_NAME /bin/rm $DHOST_PATH$LEN.test
+		    
+		fi
+	       done
+	    done
+	    
+	done
+#---------------------------------------------------------------------------------------
+
+
+
+    fi
+done
+
+
+#
+#echo "set terminal png" > gnuplotbatch
+#echo 'set datafile separator ","' >> gnuplotbatch
+
+#echo 'set xlabel "Transfer Length (bytes)"' >> gnuplotbatch
+
+#echo 'set ylabel "Average Transfer Speed (Mb/s)"' >> gnuplotbatch
+#echo 'set output "length_vs_gucavg.png"' >> gnuplotbatch
+#echo "plot 'gtt.data' using 4:9" >> gnuplotbatch
+
+#echo 'set ylabel "Average %CPU usage during transfer"' >> gnuplotbatch
+#echo 'set output "length_vs_cpuavg.png"' >> gnuplotbatch
+#echo "plot 'gtt.data' using 4:11" >> gnuplotbatch
+
+#echo 'set xlabel "TCP Buffer Size (bytes)"' >> gnuplotbatch
+
+#echo 'set ylabel "Average Transfer Speed (Mb/s)"' >> gnuplotbatch
+#echo 'set output "tcpbuffer_vs_gucavg.png"' >> gnuplotbatch
+#echo "plot 'gtt.data' using 6:9" >> gnuplotbatch
+
+#echo 'set ylabel "Average %CPU usage during transfer"' >> gnuplotbatch
+#echo 'set output "tcpbuffer_vs_cpuavg.png"' >> gnuplotbatch
+#echo "plot 'gtt.data' using 6:11" >> gnuplotbatch
+
+#echo 'set xlabel "Parallel streams"' >> gnuplotbatch
+
+#echo 'set ylabel "Average Transfer Speed (Mb/s)"' >> gnuplotbatch
+#echo 'set output "parallel_vs_gucavg.png"' >> gnuplotbatch
+#echo "plot 'gtt.data' using 5:9" >> gnuplotbatch
+
+#echo 'set ylabel "Average %CPU usage during transfer"' >> gnuplotbatch
+#echo 'set output "parallel_vs_cpuavg.png"' >> gnuplotbatch
+#echo "plot 'gtt.data' using 5:11" >> gnuplotbatch
+
+
+#gnuplot gnuplotbatch
+
+gnuplotscript
+
+exit 0

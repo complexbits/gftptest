@@ -1,0 +1,400 @@
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       264.91 MB/sec avg       264.91 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       262144 bytes         0.34 MB/sec avg         0.34 MB/sec inst    500262144 bytes       203.54 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       262144 bytes         0.40 MB/sec avg         0.40 MB/sec inst    500262144 bytes       135.49 MB/sec avg       164.43 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       158.95 MB/sec avg       158.95 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       524288 bytes         0.84 MB/sec avg         0.84 MB/sec inst    500524288 bytes       132.79 MB/sec avg       158.95 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       158.95 MB/sec avg       158.95 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       262144 bytes         0.39 MB/sec avg         0.39 MB/sec inst    500262144 bytes       134.57 MB/sec avg       164.43 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       280.49 MB/sec avg       280.49 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       280.49 MB/sec avg       280.49 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1477443584 bytes       281.80 MB/sec avg       281.80 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1476132864 bytes       281.55 MB/sec avg       281.55 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1458569216 bytes       278.20 MB/sec avg       278.20 MB/sec inst   1500000000 bytes       275.10 MB/sec avg       197.56 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1475608576 bytes       281.45 MB/sec avg       281.45 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       291.94 MB/sec avg       291.94 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       524288 bytes         0.84 MB/sec avg         0.84 MB/sec inst   1500524288 bytes       255.61 MB/sec avg       286.10 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       317.89 MB/sec avg       317.89 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       286.10 MB/sec avg       286.10 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1560543232 bytes       297.65 MB/sec avg       297.65 MB/sec inst   2000000000 bytes       298.02 MB/sec avg       299.36 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1791754240 bytes       341.75 MB/sec avg       341.75 MB/sec inst   2000000000 bytes       340.60 MB/sec avg       331.00 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1458044928 bytes       278.10 MB/sec avg       278.10 MB/sec inst   2000000000 bytes       284.68 MB/sec avg       304.03 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       262144 bytes         0.38 MB/sec avg         0.38 MB/sec inst   1475084288 bytes       248.72 MB/sec avg       281.30 MB/sec inst   2000262144 bytes       259.33 MB/sec avg       294.62 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1470103552 bytes       280.40 MB/sec avg       280.40 MB/sec inst   2000000000 bytes       284.68 MB/sec avg       297.26 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1500250112 bytes       286.15 MB/sec avg       286.15 MB/sec inst   2000000000 bytes       293.44 MB/sec avg       317.73 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1433665536 bytes       273.45 MB/sec avg       273.45 MB/sec inst   2000000000 bytes       280.49 MB/sec avg       300.05 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1437073408 bytes       274.10 MB/sec avg       274.10 MB/sec inst   2000000000 bytes       284.68 MB/sec avg       315.79 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+       524288 bytes         0.81 MB/sec avg         0.81 MB/sec inst   1932104704 bytes       327.95 MB/sec avg       368.42 MB/sec inst   2000524288 bytes       333.62 MB/sec avg       652.50 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1446510592 bytes       275.90 MB/sec avg       275.90 MB/sec inst   2000000000 bytes       284.68 MB/sec avg       310.50 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1784676352 bytes       340.40 MB/sec avg       340.40 MB/sec inst   2500000000 bytes       361.24 MB/sec avg       426.37 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1468530688 bytes       280.10 MB/sec avg       280.10 MB/sec inst   2500000000 bytes       287.25 MB/sec avg       298.09 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1526202368 bytes       291.10 MB/sec avg       291.10 MB/sec inst   2500000000 bytes       294.34 MB/sec avg       299.58 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1461977088 bytes       278.85 MB/sec avg       278.85 MB/sec inst   2500000000 bytes       283.83 MB/sec avg       291.16 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1473773568 bytes       281.10 MB/sec avg       281.10 MB/sec inst   2500000000 bytes       298.02 MB/sec avg       326.23 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1482424320 bytes       282.75 MB/sec avg       282.75 MB/sec inst   2500000000 bytes       290.75 MB/sec avg       303.26 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1449394176 bytes       276.45 MB/sec avg       276.45 MB/sec inst   2500000000 bytes       287.25 MB/sec avg       303.62 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1464336384 bytes       279.30 MB/sec avg       279.30 MB/sec inst   2500000000 bytes       290.75 MB/sec avg       308.65 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1438121984 bytes       274.30 MB/sec avg       274.30 MB/sec inst   2500000000 bytes       287.25 MB/sec avg       306.87 MB/sec inst
+Source: gsiftp://tier2-03.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-04.ochep.ou.edu/dev/
+  zero  ->  null
+   1456472064 bytes       277.80 MB/sec avg       277.80 MB/sec inst   2500000000 bytes       287.25 MB/sec avg       301.57 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       158.95 MB/sec avg       158.95 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       158.95 MB/sec avg       158.95 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       158.95 MB/sec avg       158.95 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       280.49 MB/sec avg       280.49 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+    500000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       381.47 MB/sec avg       381.47 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+       786432 bytes         1.25 MB/sec avg         1.25 MB/sec inst   1000786432 bytes       307.77 MB/sec avg       381.47 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       381.47 MB/sec avg       381.47 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       288.99 MB/sec avg       288.99 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       328.85 MB/sec avg       328.85 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1000000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       408.72 MB/sec avg       408.72 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       298.02 MB/sec avg       298.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       286.10 MB/sec avg       286.10 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       366.80 MB/sec avg       366.80 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       376.45 MB/sec avg       376.45 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       291.94 MB/sec avg       291.94 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       291.94 MB/sec avg       291.94 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       291.94 MB/sec avg       291.94 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       357.63 MB/sec avg       357.63 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1500000000 bytes       348.91 MB/sec avg       348.91 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   2000000000 bytes       405.82 MB/sec avg       405.82 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   2000000000 bytes       397.36 MB/sec avg       397.36 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1725956096 bytes       329.20 MB/sec avg       329.20 MB/sec inst   2000000000 bytes       340.60 MB/sec avg       435.58 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1908670464 bytes       364.05 MB/sec avg       364.05 MB/sec inst   2000000000 bytes       359.88 MB/sec avg       290.33 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1540620288 bytes       293.85 MB/sec avg       293.85 MB/sec inst   2000000000 bytes       298.02 MB/sec avg       312.93 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1931214848 bytes       368.35 MB/sec avg       368.35 MB/sec inst   2000000000 bytes       373.99 MB/sec avg       655.99 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1509687296 bytes       287.95 MB/sec avg       287.95 MB/sec inst   2000000000 bytes       298.02 MB/sec avg       334.00 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1473249280 bytes       281.00 MB/sec avg       281.00 MB/sec inst   2000000000 bytes       288.99 MB/sec avg       313.97 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1801191424 bytes       343.55 MB/sec avg       343.55 MB/sec inst   2000000000 bytes       346.79 MB/sec avg       379.20 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1876951040 bytes       358.00 MB/sec avg       358.00 MB/sec inst   2000000000 bytes       346.79 MB/sec avg       234.70 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1697644544 bytes       323.80 MB/sec avg       323.80 MB/sec inst   2500000000 bytes       317.89 MB/sec avg       306.07 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1980497920 bytes       377.75 MB/sec avg       377.75 MB/sec inst   2500000000 bytes       384.55 MB/sec avg       412.86 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   2037907456 bytes       388.70 MB/sec avg       388.70 MB/sec inst   2500000000 bytes       390.85 MB/sec avg       400.62 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1986002944 bytes       378.80 MB/sec avg       378.80 MB/sec inst   2500000000 bytes       378.44 MB/sec avg       377.07 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1987051520 bytes       379.00 MB/sec avg       379.00 MB/sec inst   2500000000 bytes       355.85 MB/sec avg       287.76 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1740898304 bytes       332.05 MB/sec avg       332.05 MB/sec inst   2500000000 bytes       345.53 MB/sec avg       381.02 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1911291904 bytes       364.55 MB/sec avg       364.55 MB/sec inst   2500000000 bytes       350.62 MB/sec avg       311.91 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1430519808 bytes       272.85 MB/sec avg       272.85 MB/sec inst   2500000000 bytes       287.25 MB/sec avg       309.07 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1496055808 bytes       279.75 MB/sec avg       279.75 MB/sec inst   2500000000 bytes       290.75 MB/sec avg       308.85 MB/sec inst
+Source: gsiftp://tier2-04.ochep.ou.edu/dev/
+Dest:   gsiftp://tier2-03.ochep.ou.edu/dev/
+  zero  ->  null
+   1895563264 bytes       361.55 MB/sec avg       361.55 MB/sec inst   2500000000 bytes       366.80 MB/sec avg       384.29 MB/sec inst
